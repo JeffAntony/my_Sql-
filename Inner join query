@@ -1,0 +1,42 @@
+show databases;
+use sakila;
+show tables;
+desc film;
+desc inventory;
+select film_id,title from film;
+select title,count(rental_id) as totalcount from film inner join inventory using (film_id)
+inner join rental using (inventory_id) group by title having totalcount>5
+order by totalcount desc limit 3;
+
+select  cust.customer_id ,rental.rental_id,cust.email,inv.film_id from customer as cust 
+inner join rental using (customer_id)
+inner join inventory as inv using (inventory_id)
+inner join film_category using (film_id)
+inner join category using (category_id)
+ where email="JANE.BENNET@sakilacustomer.org";
+
+create table employ(ed_int int  , ename varchar(26), email varchar(20),manager_id int);
+insert into employ values (3,"goopal","fghdgh",45);
+insert into employ values (4,"Ravi","fuibgv",36);
+insert into employ values(7,"trilok","ffjvbr",78);
+
+select * from employ;
+select em.ed_int, em.ename, em.email, manager_id.ename from employ as em, emp as manager_id
+where em.manager_id=manager.manger_id;
+
+-- use sakila ;
+-- show tables;
+
+select film_id, rental_duration from film where film_id=1;
+
+-- single resulted nested query :- jinke andar aek subquery-- 
+
+select film_id , rental_duration from film where rental_duration=6;
+
+select film_id , rental_duration from film where rental_duration=(select film_id, rental_duration from film where film_id=1);
+
+
+
+
+
+
