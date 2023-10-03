@@ -1,0 +1,81 @@
+ views--------------------------------------------
+
+use sakila;
+show tables;
+drop table abc;
+select * from actor;
+
+select actor_id,first_name from actor;
+
+-- virtual view--------------------------------------------------------
+create view actor_view as 
+select actor_id,first_name from actor;
+
+select * from actor_view;
+
+create table test(id int ,name varchar(20));
+insert into test values(1,'tushar');
+insert into test values(2,'aman');
+insert into test values(3,'aditya');
+
+create view testview as
+select name from test;
+
+select * from testview ;
+
+-- insert 
+insert into testview values("regex");
+select * from testview;
+select * from test;
+
+insert into test values(100,"navi");
+select * from testview;
+select * from test;
+
+-- delete view
+delete from testview where name='navi';
+select * from testview;
+select * from test;
+
+-- replace------------------------
+create or replace view testview as
+select id,name from test;
+select * from testview;
+
+-- alter
+alter view testview as select name from test where id>2;
+select * from testview;
+
+drop view testview;
+show tables;
+
+select * from country;
+select * from city;
+
+select country_id,country,city_id,city
+ from country inner join city using(country_id);
+
+create view city_view as
+select country_id,country,city_id,city
+ from country inner join city using(country_id);
+ 
+ select * from city_view;
+ insert into city_view values(9999,'yyy',999,'japan');    -- insert nhi kr skte kyuki join ho rkha h --subquery,group by pr insert nhi kr skte
+ 
+ select * from test;
+ select count(id) from test;
+ 
+ -- ifnull()---------------------------------------
+select id,ifnull(id,0) from test;
+
+ select count(id) from test;
+select count(ifnull(id,0)) from test;
+
+-- coalesce()--------------------------------return not null value who comes first
+alter table test add column salary int;
+insert into test values(4,null,100);
+insert into test values(null,null,200);
+insert into test values(100,null,null);
+select * from test;
+
+select id,name,salary ,coalesce(id,name,salary) from test;  -- return not null value who comes first
