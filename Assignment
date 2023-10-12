@@ -1,0 +1,46 @@
+-- Q1 How many movies a user has worked
+--     Actor and film_actor table
+--     - Number of movies should me more than 3
+
+SELECT actor.actor_id, actor.first_name, actor.last_name, COUNT(film_actor.film_id) AS num_movies
+FROM actor
+JOIN film_actor ON actor.actor_id = film_actor.actor_id
+GROUP BY actor.actor_id, actor.first_name, actor.last_name
+HAVING COUNT(film_actor.film_id) > 3;
+
+Q2 Get all the information of user with the maximum and minium salary
+--     (id , name, email, salary)
+
+ans : use world;
+
+select * from employees inner join salaries using(emp_no) where 
+salary=(select max(salary) from salaries) or salary=(select min(salary) from salaries);
+
+
+Q3.
+use world;
+show tables;
+select * from city;
+select countrycode,count(countrycode),sum(population) from city 
+ group by countrycode
+having sum(population)>1000 and count(countrycode)>2;
+
+Q4 Q4 Finding all the country code where
+-- the number of city in each country should be greater than or equal tol the
+-- city present in each country code ” AFG”, ”NLD”, “ARE”  and “BGD”  ( use country table) 
+
+ans : create database avi;
+use avi;
+ 
+ create table company  (id int,nam varchar(100), salary int, dept varchar(20));
+ 
+ insert into company values(1,'rahul',5000,'sales');
+insert into company values (2, 'vikas',4000,'hr');
+insert into company values(3, 'vaibhav',5000,'peon');
+  insert into company values (4, 'ram',7000,'develper');
+insert into company values (5, 'mohit',8000,'aws');
+                          
+                          
+select salary, salary*(select salary from company where id=2)/100 as parcentage from company;
+
+
